@@ -18,15 +18,15 @@ const FormGenerator: React.FC<{ schema: FormSchema, jsonError: jsonError }> = ({
     return (
         <div className="w-full h-full">
             {jsonError.isError ? <>
-                <h2 className="text-xl font-bold">Kindly solve the following errors:</h2>
-                {jsonError.errorMessages?.map((error, index) => <p key={index}>{error}</p>)}
+                <h2 className="text-xl font-bold dark:text-white">Kindly solve the following errors:</h2>
+                {jsonError.errorMessages?.map((error, index) => <p className="dark:text-white" key={index}>{error}</p>)}
             </> : <>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                    <h2 className="text-xl font-bold">{schema.formTitle}</h2>
-                    <p>{schema.formDescription}</p>
+                    <h2 className="text-xl font-bold dark:text-white">{schema.formTitle}</h2>
+                    <p className="dark:text-white">{schema.formDescription}</p>
                     {schema.fields.map((field, index) => (
                         <div key={index}>
-                            <label className="block text-sm font-medium">
+                            <label className="block text-sm font-medium dark:text-white">
                                 {field.label}
                             </label>
                             {field.type === "text" || field.type === "email" ? (
@@ -37,16 +37,16 @@ const FormGenerator: React.FC<{ schema: FormSchema, jsonError: jsonError }> = ({
                                     })}
                                     type={field.type}
                                     placeholder={field.placeholder}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-black dark:text-white border border-slate-600 px-3 py-3"
                                 />
                             ) : field.type === "textarea" ? (
                                 <textarea
                                     {...register(field.id, { required: field.required })}
                                     placeholder={field.placeholder}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-black dark:text-white border border-slate-600 px-3 py-3"
                                 />
                             ) : field.type === "select" ? (
-                                <select {...register(field.id, { required: field.required })} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                <select {...register(field.id, { required: field.required })} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-black dark:text-white border border-slate-600 px-3 py-3">
                                     {field.options?.map((option) => (
                                         <option key={option.value} value={option.value}>
                                             {option.label}

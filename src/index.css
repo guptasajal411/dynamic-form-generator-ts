@@ -15,3 +15,18 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
+
+* {
+    @apply transition-colors duration-300
+}
+
+.light {
+    --color-primary: #0d121c;
+    --color-bg-primary: hsl(0, 0%, 100%);
+}
+
+.dark {
+    background: black;
+    --color-primary: hsl(0, 0%, 100%);
+    --color-bg-primary: #0d121c;
+}

@@ -52,12 +52,12 @@ const JSONEditor: React.FC<JSONEditorProps> = ({ schema, setSchema, setJsonError
     return (
         <div className="h-full w-full flex flex-col max-h-screen overflow-y-auto">
             <div className="flex align-middle justify-between">
-                <h2 className="text-xl font-bold">JSON Editor</h2>
+                <h2 className="text-xl font-bold dark:text-white">JSON Editor</h2>
                 <button onClick={handleCopy}>Copy Form JSON</button>
             </div>
             <textarea
                 data-testid={"json-editor"}
-                className="w-full h-full border p-2 rounded mt-2"
+                className="w-full h-full border p-2 rounded mt-2 dark:bg-black dark:text-white border-slate-500 focus:border"
                 value={jsonValue} // using a local state here because using default values from parent component doesnt update on using the "copy from json" button, making the textarea controlled
                 onChange={handleChange}
             />
