@@ -50,7 +50,6 @@ const FormGenerator: React.FC<{ schema: FormSchema, jsonError: jsonError }> = ({
                                     ))}
                                 </select>
                             ) : null}
-
                             {errors[field.id] && (
                                 <span className="text-red-500 text-sm">
                                     {field.validation?.message || "This field is required"}
