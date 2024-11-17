@@ -4,18 +4,20 @@ import { jsonError } from "../types/errors";
 import { FormSchema } from "../types/formTypes";
 
 const FormGenerator: React.FC<{ schema: FormSchema, jsonError: jsonError }> = ({ schema, jsonError }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm();
 
     const onSubmit = (data: any) => {
         console.log(data);
         alert("Form submitted successfully!");
     };
 
+    const formData = watch(); // will watch dynamically generated input fields & user inputs, from react-hook-form
+
     return (
         <div className="w-full h-full">
             {jsonError.isError ? <>
                 <h2 className="text-xl font-bold">Kindly solve the following errors:</h2>
-                {jsonError.errorMessages?.map(error => <p>{error}</p>)}
+                {jsonError.errorMessages?.map((error, index) => <p key={index}>{error}</p>)}
             </> : <>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <h2 className="text-xl font-bold">{schema.formTitle}</h2>
