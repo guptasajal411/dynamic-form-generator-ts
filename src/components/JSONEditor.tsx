@@ -51,9 +51,9 @@ const JSONEditor: React.FC<JSONEditorProps> = ({ schema, setSchema, setJsonError
 
     return (
         <div className="h-full w-full flex flex-col max-h-screen overflow-y-auto">
-            <div className="flex align-middle justify-between">
+            <div className="flex items-center justify-between">
                 <h2 className="text-xl font-bold dark:text-white">JSON Editor</h2>
-                <button onClick={handleCopy}>Copy Form JSON</button>
+                <button onClick={handleCopy} className="bg-blue-500 px-4 py-2 rounded text-white">Copy Form JSON</button>
             </div>
             <textarea
                 data-testid={"json-editor"}
