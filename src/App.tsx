@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Layout from "./components/Layout";
+import FormGenerator from "./components/FormGenerator";
+import JSONEditor from "./components/JSONEditor";
 
-function App() {
+import { sampleSchema } from "./utils/sampleSchema";
+
+const App: React.FC = () => {
+    const [schema, setSchema] = useState(sampleSchema);
+
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p className='bg-purple-500'>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <Layout>
+            <JSONEditor schema={schema} setSchema={setSchema} />
+            <FormGenerator schema={schema} />
+        </Layout>
     );
-}
+};
 
 export default App;
