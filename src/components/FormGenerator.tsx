@@ -12,16 +12,22 @@ const FormGenerator: React.FC<{ schema: FormSchema, jsonError: jsonError }> = ({
 
     const onSubmit = (data: any) => {
         console.log(data);
+        const dataStr = JSON.stringify(data, null, 4);
+        const blob = new Blob([dataStr], { type: "application/json" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "yourSubmission.json";
+        link.click();
         alert("Form submitted successfully!");
     };
 
     return (
-        <div className="w-full h-full">
-            {jsonError.isError ? <>
+        <div className="w-full h-full animate-fade-in">
+            {jsonError.isError ? <div className="w-full h-full flex flex-col align-middle animate-fade-in">
                 <h2 className="text-xl font-bold dark:text-white">Kindly solve the following errors:</h2>
-                {jsonError.errorMessages?.map((error, index) => <p className="dark:text-white" key={index}>{error}</p>)}
-            </> : <>
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                {jsonError.errorMessages?.map((error, index) => <p className="dark:text-white" key={index}>- {error}</p>)}
+            </div> : <>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 animate-fade-in">
                     <h2 className="text-xl font-bold dark:text-white">{schema.formTitle}</h2>
                     <p className="dark:text-white">{schema.formDescription}</p>
                     {schema.fields.map((field, index) => (
