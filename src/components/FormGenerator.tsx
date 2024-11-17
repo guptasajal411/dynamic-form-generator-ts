@@ -7,12 +7,11 @@ const FormGenerator: React.FC<{ schema: FormSchema, jsonError: jsonError }> = ({
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     useEffect(() => {
-        // Reset the form whenever the schema changes to ensure no residual fields.
         reset();
     }, [schema, reset]);
 
     const onSubmit = (data: any) => {
-        console.log(data); // Should only log schema-defined fields
+        console.log(data);
         alert("Form submitted successfully!");
     };
 
