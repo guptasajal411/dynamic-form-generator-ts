@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { jsonError } from "../types/errors";
 import { FormSchema } from "../types/formTypes";
 
 const FormGenerator: React.FC<{ schema: FormSchema, jsonError: jsonError }> = ({ schema, jsonError }) => {
-    const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+
+    useEffect(() => {
+        // Reset the form whenever the schema changes to ensure no residual fields.
+        reset();
+    }, [schema, reset]);
 
     const onSubmit = (data: any) => {
-        console.log(data);
+        console.log(data); // Should only log schema-defined fields
         alert("Form submitted successfully!");
     };
-
-    const formData = watch(); // will watch dynamically generated input fields & user inputs, from react-hook-form
 
     return (
         <div className="w-full h-full">
