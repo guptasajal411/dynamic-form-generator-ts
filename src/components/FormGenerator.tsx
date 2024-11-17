@@ -23,18 +23,18 @@ const FormGenerator: React.FC<{ schema: FormSchema, jsonError: jsonError }> = ({
 
     return (
         <div className="w-full h-full animate-fade-in">
-            {jsonError.isError ? <div className="w-full h-full flex flex-col align-middle animate-fade-in">
-                <h2 className="text-xl font-bold dark:text-white">Kindly solve the following errors:</h2>
-                {jsonError.errorMessages?.map((error, index) => <p className="dark:text-white" key={index}>- {error}</p>)}
-            </div> : <>
+            {jsonError.isError ? <>
+                <div className="w-full h-full flex flex-col align-middle animate-fade-in">
+                    <h2 className="text-xl font-bold dark:text-white">Kindly solve the following errors:</h2>
+                    {jsonError.errorMessages?.map((error, index) => <p className="dark:text-white" key={index}>- {error}</p>)}
+                </div>
+            </> : <>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 animate-fade-in">
                     <h2 className="text-xl font-bold dark:text-white">{schema.formTitle}</h2>
                     <p className="dark:text-white">{schema.formDescription}</p>
                     {schema.fields.map((field, index) => (
                         <div key={index}>
-                            <label className="block text-sm font-medium dark:text-white">
-                                {field.label}
-                            </label>
+                            <label className="block text-sm font-medium dark:text-white">{field.label}</label>
                             {field.type === "text" || field.type === "email" ? (
                                 <input
                                     {...register(field.id, {
@@ -59,6 +59,21 @@ const FormGenerator: React.FC<{ schema: FormSchema, jsonError: jsonError }> = ({
                                         </option>
                                     ))}
                                 </select>
+                            ) : field.type === "radio" ? (
+                                <div className="space-y-2 w-full flex flex-wrap items-center justify-start">
+                                    {field.options?.map((option) => (
+                                        <div key={option.value} className="flex items-center mt-2 mr-2">
+                                            <input
+                                                {...register(field.id, { required: field.required })}
+                                                type="radio"
+                                                value={option.value}
+                                                id={`${field.id}-${option.value}`}
+                                                className="mr-2"
+                                            />
+                                            <label htmlFor={`${field.id}-${option.value}`} className="text-sm dark:text-white">{option.label}</label>
+                                        </div>
+                                    ))}
+                                </div>
                             ) : null}
                             {errors[field.id] && (
                                 <span className="text-red-500 text-sm">
