@@ -1,37 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
+import { JSONEditorProps } from "../types/editorTypes";
+import { formSchema } from "../validators/jsonValidator";
 import { z } from "zod";
-
-interface JSONEditorProps {
-    schema: any;
-    setSchema: React.Dispatch<React.SetStateAction<any>>;
-    setJsonError: React.Dispatch<React.SetStateAction<any>>;
-}
-
-const formFieldSchema = z.object({
-    id: z.string(),
-    type: z.enum(["text", "email", "select", "radio", "textarea"]),
-    label: z.string(),
-    required: z.boolean().optional(),
-    placeholder: z.string().optional(),
-    options: z
-        .array(z.object({
-            value: z.string(),
-            label: z.string()
-        }))
-        .optional(),
-    validation: z
-        .object({
-            pattern: z.string().optional(),
-            message: z.string().optional(),
-        })
-        .optional(),
-});
-
-const formSchema = z.object({
-    formTitle: z.string(),
-    formDescription: z.string(),
-    fields: z.array(formFieldSchema),
-});
 
 const JSONEditor: React.FC<JSONEditorProps> = ({ schema, setSchema, setJsonError }) => {
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -74,7 +44,6 @@ const JSONEditor: React.FC<JSONEditorProps> = ({ schema, setSchema, setJsonError
                 defaultValue={JSON.stringify(schema, null, 2)}
                 onChange={handleChange}
             />
-            {/* {error && <p className="text-red-500 mt-2">{error}</p>} */}
         </div>
     );
 };

@@ -1,21 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { jsonError } from "../types/errors";
-interface FormField {
-    id: string;
-    type: string;
-    label: string;
-    required?: boolean;
-    placeholder?: string;
-    options?: { value: string; label: string }[];
-    validation?: { pattern?: string; message?: string };
-}
-
-interface FormSchema {
-    formTitle: string;
-    formDescription: string;
-    fields: FormField[];
-}
+import { FormSchema } from "../types/formTypes";
 
 const FormGenerator: React.FC<{ schema: FormSchema, jsonError: jsonError }> = ({ schema, jsonError }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
